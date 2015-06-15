@@ -2,3 +2,9 @@
 .ruby-version
 .ruby-gemset
 -rvmrc
+shop_rspec/.bundle
+shop_rspec/bin
+
+# floobits
+.floo
+.flooignore

@@ -61,9 +61,9 @@ class GreatBritishPound < Currency
   def convert(price)
     raw = strip_currency_signs(price)
     case price
-      when /^£/
+      when /^#{major}/
         raw * 100
-      when /p$/
+      when /#{minor}$/
         raw
       else
         raw
@@ -85,9 +85,9 @@ class Euro < Currency
   def convert(price)
     raw = strip_currency_signs(price)
     case price
-      when /€$/
+      when /#{major}$/
         raw * 100
-      when /c$/
+      when /#{minor}$/
         raw
       else
         raw
@@ -164,11 +164,11 @@ describe 'Currencies' do
     subject { described_class.new }
 
     describe "#strip_currency_signs" do
-      it "returns price without major currency sign" do
+      it "returns price without currency major sign" do
         expect(subject.strip_currency_signs("£1.20")).to eq(1.2)
       end
 
-      it "returns price without minor currency sign" do
+      it "returns price without currency minor sign" do
         expect(subject.strip_currency_signs("35p")).to eq(35)
       end
 
