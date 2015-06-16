@@ -15,20 +15,32 @@ class Play
   end
 
   def start_game
+    subject = animal;
     loop do
-      console.ask 'Think of an animal'
-      # guess animal
-      animal.guess
+      console.say 'Think of an animal'
 
-      break unless console.y_n_question 'Play again?'
+      sleep(1)
+
+      # guess animal
+      subject = guess_animal subject
+
+      break unless continue_game?
       puts "\n***"
 
     end
-
   end
+
+  def guess_animal animal
+    animal.guess
+  end
+
+  def continue_game?
+    console.y_n_question "Play again? #{Console::YES_NO}"
+  end
+
 end
 
 console = Console.new
-animal = Animal.new 'rabbit'
+animal = Animal.new console, 'rabbit'
 play = Play.new console, animal
 play.start_game

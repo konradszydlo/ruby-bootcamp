@@ -1,5 +1,7 @@
 class Console
 
+  YES_NO = '(y or n)'
+
   def ask( question )
     puts question
     gets.chomp
