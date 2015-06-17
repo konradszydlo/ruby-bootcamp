@@ -41,6 +41,6 @@ class Play
 end
 
 console = Console.new
-animal = Animal.new console, 'rabbit'
+animal = Animal.new console, 'elephant'
 play = Play.new console, animal
 play.start_game

@@ -7,15 +7,16 @@ describe Play do
 
     let(:console) { Console.new }
     let(:rabbit) { Animal.new( console, "rabbit" ) }
+    let(:dog) { Animal.new(console, 'dog') }
 
     let(:think_of_animal_message) { 'Think of an animal' }
 
     subject { described_class.new( console, rabbit ) }
 
+    let(:yes_question) { Question.new('Is it small', rabbit, dog, console) }
+
     it 'should ask user to think of an animal' do
       allow(STDOUT).to receive(:puts).and_return(think_of_animal_message)
-      # # allow(subject).to receive(:continue_game).and_return(false)
-      #
       expect(STDOUT).to receive(:puts).with(think_of_animal_message)
       subject.start_game
     end
@@ -25,12 +26,12 @@ describe Play do
       subject.start_game
     end
 
-    # context 'animal.guess returns current animal' do
-    #   it 'animal returned is current animal' do
-    #     expect(rabbit).to receive(:guess).and_return(subject)
-    #     expect(subject).to eq()
-    #   end
-    # end
+    context 'game subject is set to question' do
+      it 'calls #guess method of question' do
+        allow(rabbit).to receive(:guess).and_return(:yes_question)
+        expect(yes_question).to receive(:guess)
+        subject.start_game
+      end
+    end
   end
 end
-#

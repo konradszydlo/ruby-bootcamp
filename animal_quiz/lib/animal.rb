@@ -53,8 +53,13 @@ class Animal
 
   def save_question animal, question, answer
     if answer
-      Question.new(question, Animal.new(console, animal), self)
+      Question.new(question, Animal.new(console, animal), self, console)
+    else
+      Question.new(question, self, Animal.new(console, animal), console)
     end
+  end
 
+  def ==(other)
+    self.name == other.name
   end
 end

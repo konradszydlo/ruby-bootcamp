@@ -101,26 +101,31 @@ describe Animal do
 
     context 'animal distinguishing answer is yes' do
       let(:yes_question) do
-        Question.new 'Is it small', subject, elephant
+        Question.new 'like a donkey', elephant, subject, console
       end
 
-      # it 'returns question with subject set to yes' do
-      #   # allow(subject).to receive(:save_question).and_return(yes_question)
-      #   allow(subject).to receive(:ask_for_correct_animal).and_return(dog)
-      #   allow(subject).to receive(:ask_for_distinguishing_question).and_return('like a donkey')
-      #   allow(subject).to receive(:ask_for_answer_to_distinguishing_question).and_return()
-      #   expect(subject.incorrect_guess).to eq(yes_question)
-      # end
+      it 'returns question with subject set to yes' do
+        # allow(subject).to receive(:save_question).and_return(yes_question)
+        allow(subject).to receive(:ask_for_correct_animal).and_return('elephant')
+        allow(subject).to receive(:ask_for_distinguishing_question).and_return('like a donkey')
+        allow(subject).to receive(:ask_for_answer_to_distinguishing_question).and_return(true)
+        expect(subject.incorrect_guess).to  be  == yes_question
+      end
     end
 
     context 'animal distinguishing answer is no' do
       let(:no_question) do
-        Question.new 'Is it small', elephant, self
+        Question.new 'Is it small', subject, elephant, console
       end
 
       it 'returns question with subject set to no' do
-        allow(subject).to receive(:save_question).and_return(no_question)
-        expect(subject.incorrect_guess).to eq(no_question)
+        allow(subject).to receive(:ask_for_correct_animal).and_return('elephant')
+        allow(subject).to receive(:ask_for_distinguishing_question).and_return('Is it small')
+        allow(subject).to receive(:ask_for_answer_to_distinguishing_question).and_return(false)
+        expect(subject.incorrect_guess).to  be  == no_question
+
+        # allow(subject).to receive(:save_question).and_return(no_question)
+        # expect(subject.incorrect_guess).to eq(no_question)
       end
     end
 
