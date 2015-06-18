@@ -2,6 +2,8 @@ require_relative '../lib/animal'
 require_relative '../lib/console'
 require_relative '../lib/question'
 
+require_relative 'support/question_shared_examples'
+
 describe Question do
 
   let(:console) { Console.new }
@@ -42,7 +44,6 @@ describe Question do
           expect(yes_question.yes_answer).to be == is_it_kind_a_dog_question
         end
       end
-
     end
 
     context 'user answered no to question' do
@@ -70,5 +71,7 @@ describe Question do
       end
     end
   end
+
+  it_behaves_like 'question object'
 
 end

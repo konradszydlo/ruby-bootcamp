@@ -2,6 +2,8 @@ require_relative '../lib/animal'
 require_relative '../lib/console'
 require_relative '../lib/question'
 
+require_relative 'support/question_shared_examples'
+
 describe Animal do
 
   let(:console) { Console.new }
@@ -41,7 +43,6 @@ describe Animal do
         subject.guess
       end
     end
-
   end
 
   describe '#animal_guessed?' do
@@ -79,11 +80,6 @@ describe Animal do
       subject.incorrect_guess
     end
 
-    it 'calls #ask_for_distinguishing_question' do
-
-      subject.incorrect_guess
-    end
-
     it 'calls #ask_for_answer_to_distinguishing_question' do
       expect(subject).to receive(:ask_for_answer_to_distinguishing_question)
       subject.incorrect_guess
@@ -105,7 +101,6 @@ describe Animal do
       end
 
       it 'returns question with subject set to yes' do
-        # allow(subject).to receive(:save_question).and_return(yes_question)
         allow(subject).to receive(:ask_for_correct_animal).and_return('elephant')
         allow(subject).to receive(:ask_for_distinguishing_question).and_return('like a donkey')
         allow(subject).to receive(:ask_for_answer_to_distinguishing_question).and_return(true)
@@ -123,9 +118,6 @@ describe Animal do
         allow(subject).to receive(:ask_for_distinguishing_question).and_return('Is it small')
         allow(subject).to receive(:ask_for_answer_to_distinguishing_question).and_return(false)
         expect(subject.incorrect_guess).to  be  == no_question
-
-        # allow(subject).to receive(:save_question).and_return(no_question)
-        # expect(subject.incorrect_guess).to eq(no_question)
       end
     end
 
@@ -155,10 +147,11 @@ describe Animal do
 
   describe '#ask_for_answer_to_distinguishing_question' do
     it 'ask user for the answer to her distinguishing question' do
-      # expect(STDOUT).to receive(:puts).with("For #{rabbit} what is the answer to your question #{yes_no}")
       allow(console).to receive(:y_n_question).and_return true
       expect(subject.ask_for_answer_to_distinguishing_question rabbit).to be_truthy
     end
   end
+
+  it_behaves_like 'question object'
 
 end
