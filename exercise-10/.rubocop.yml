@@ -1,0 +1,7 @@
+
+Metrics/LineLength:
+  Max: 90
+
+Documentation:
+  Exclude:
+  - spec/ruby_bootcap/exercise_10/split_set_spec.rb
