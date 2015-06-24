@@ -10,3 +10,4 @@ begin
   rescue LoadError
 end
 
+task default: %w[spec rubocop:auto_correct]
