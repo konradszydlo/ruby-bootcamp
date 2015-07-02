@@ -10,3 +10,5 @@ shop_rspec/bin
 # floobits
 .floo
 .flooignore
+workshops/*/.bundle
+workshops/*/vendor
