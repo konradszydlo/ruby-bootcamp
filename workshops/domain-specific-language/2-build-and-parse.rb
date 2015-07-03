@@ -17,6 +17,8 @@ class Company
 
   class Employee
 
+    attr_reader :is_managing_director
+
     def initialize(&block)
       instance_eval(&block)
     end
@@ -32,6 +34,10 @@ class Company
         end
       end
     end
+
+    def managing_director
+      @is_managing_director = true
+    end
   end
 
   attr_reader :departments
@@ -44,6 +50,16 @@ class Company
 
   def department(name, &block)
     departments << Department.new(name, &block)
+  end
+
+  def managing_director
+    @departments.each do |department|
+      department.employees.each do |employee|
+        if employee.is_managing_director
+          return employee.inspect
+        end
+      end
+    end
   end
 end
 

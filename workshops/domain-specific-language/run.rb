@@ -19,6 +19,8 @@ company do
   department 'Management' do
 
     employee do
+      managing_director
+
       first_name 'Tracy'
       last_name 'Myers'
       role 'Scrum Master'
@@ -39,3 +41,5 @@ company.departments.each do |department|
   end
 
 end
+
+puts "company director is: #{company.managing_director}"
