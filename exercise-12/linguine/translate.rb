@@ -13,6 +13,7 @@ class Translator
     @translation_engine = :google
     # @translation_engine = :bing
     @cache = cache
+    @client_secret = 'secret'
   end
 
   def get_language_content(path)
@@ -20,7 +21,7 @@ class Translator
       when :google
         translator = GoogleTranslator.new
       when :bing
-        translator = BingTranslator.new('ruby_bootcamp_exercise_12_linguine', 'tZT0Fm/XreYrTcNB+eVgVQML5/6TA1rB0fiDy1MHsFA=')
+        translator = BingTranslator.new('ruby_bootcamp_exercise_12_linguine', @client_secret)
     end
 
     data = get_file_data(path + '.data')
