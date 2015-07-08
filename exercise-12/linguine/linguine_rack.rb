@@ -5,7 +5,7 @@ class LinguineRack
 
   attr_reader :router
 
-  def initialize
-    @router = Router.new
+  def initialize(router = Router.new)
+    @router = router
   end
 end

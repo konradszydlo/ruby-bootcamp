@@ -1,44 +1,26 @@
 require 'erb'
-
 require_relative 'response'
+require_relative 'translate'
 
 class Route
 
   CONTENT_ROOT = 'language_content'
   VIEW_ROOT = 'views'
 
-  attr_reader :content_path, :filename, :view_path
+  attr_reader :content_path, :view_path, :lang, :translator
 
-  def initialize(data = {})
-
-    puts data
-
-    # @filename = data[]
-    # @content_path = CONTENT_ROOT + data
-    # @view_path = VIEW_ROOT + data
-
+  def initialize(data = {} )
+    @content_path = CONTENT_ROOT + data[:path]
+    @view_path = VIEW_ROOT + data[:path]
+    @lang = data[:lang]
   end
 
-  def get_language_content(path)
+  def execute(env, translator)
 
-    data = {}
-    File.readlines(path + '.data').each do |line|
-      key, value = line.split(':')
-      value = value.strip
-      data[key] = value
-    end
-    data
-  end
+    # content is used inside erb.
+    content = translator.get_language_content content_path
 
-  def execute(env)
-
-    # get content of a file -
-    content = get_language_content content_path
-
-    # pass it to html template
     template = File.read(view_path + '.erb')
-
-    # get html
 
     rendered_result = ERB.new(template).result(binding)
 

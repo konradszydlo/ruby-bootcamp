@@ -1,22 +1,28 @@
+require_relative 'linguine_rack'
+
+LinguineRack = LinguineRack.new
+
+LinguineRack.router.config do
+  get /(^\/\w+)\.?(\w+)?/
+end
 
 class Linguine
 
-  def initialize
-    @response = ''
-  end
+  DEFAULT_LANGUAGE = :en
 
-  def render(text)
-    @response = text
-  end
+  attr_reader :route, :translator
 
   def call(env)
-    ['200', {'Content-Type' => 'text/plain'}, [@response]]
-  end
 
-  def get(path, opts = {}, &block)
-
-    map path do
-
+    @route = LinguineRack.router.route_for(env)
+    if route
+      @translator = Translator.new(Linguine::DEFAULT_LANGUAGE, route.lang)
+      # render 'template' and return response
+      # @translator = route.translator
+      response = route.execute env, translator
+      response.rack_response
+    else
+      return [404, {}, []]
     end
   end
 end

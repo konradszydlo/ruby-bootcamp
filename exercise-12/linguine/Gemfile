@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+gem 'google-translate'
+gem 'rspec'
+gem 'webmock'
+gem 'nokogiri'

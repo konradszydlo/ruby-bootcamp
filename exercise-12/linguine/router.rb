@@ -1,4 +1,5 @@
 require_relative 'route'
+require_relative 'main'
 
 class Router
 
@@ -20,34 +21,13 @@ class Router
 
     path = env['PATH_INFO']
     method = env['REQUEST_METHOD'].downcase.to_sym
-    # route_data = routes[method].detect do |route|
-    #
-    #   puts path
-    #   puts route
-    #
-    #   # if path =~ /(^\/\w+)(\.\w+)?/
-    #   if path =~ route
-    #     puts 'it matches now'
-    #     puts "path: #{$1} and extension: #{$2}"
-    #   else
-    #     puts 'not matches'
-    #   end
-    #   route == path
-    # end
 
     match = if path =~ routes[method].first
-      puts 'it matches now'
-      puts "path: #{$1} and extension: #{$2}"
-      # lang = if $2 then $2.to_sym else :en end
-      lang = $2 ? $2.to_sym : :en
-
-    else
-      puts 'not matches'
+      default_path = $1
+      lang = $2 ? $2.to_sym : Linguine::DEFAULT_LANGUAGE
     end
 
-    puts lang
-
-    return Route.new({path => path,  lang => lang}) if match
+    return Route.new({:path => default_path,  :lang => lang}) if match
     return nil
   end
 end
