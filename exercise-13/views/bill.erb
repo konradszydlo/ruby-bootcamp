@@ -1,0 +1,30 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/bill.css" >
+    <style type="text/css">
+        /*.price {*/
+            /*color: blue;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<article>
+    <header>Generated on: <%= statement['generated'] %></header>
+    <section class="package">
+        <ul>
+            <% package['subscriptions'].each do |package| %>
+              <li>
+                  <div class="name"><%= package['name'] %></div>
+                  <div class="price"><%= package['cost'] %></div>
+              </li>
+
+            <% end %>
+        </ul>
+
+    </section>
+</article>
+<h1></h1>
+</body>
+</html>
