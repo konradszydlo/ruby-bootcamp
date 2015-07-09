@@ -1,0 +1,1 @@
+require_relative 'support/temprary_files_context'

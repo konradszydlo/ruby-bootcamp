@@ -1,0 +1,6 @@
+task default: %w[spec rubocop:auto_correct]
+
+desc 'reverts changes made by running rubocop:auto_correct'
+task :revert_auto_correct do
+  sh 'git co .'
+end
