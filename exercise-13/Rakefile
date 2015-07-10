@@ -1,0 +1,7 @@
+
+task default: %w{shotgun}
+
+desc 'run shotgun on port 4567'
+task :shotgun do
+  sh 'shotgun -p 4567'
+end
